@@ -1,18 +1,14 @@
 // Arduino Buildup
 // Arduino Commander
-// Extensible Command Processor
-// 1.0 CRJONES 9/5/12 Initial Version
-// 1.1 CRJONES 9/5/12 Input Polling
-// 1.2 CRJONES 9/5/12 Play Songs
 
 // Board Description
-// 2,3,4 tied to gnd through 470 ohm resistor
-// 5,6,7 tied to switch, N/O, tied to ground, internal pullup
-// 13 Piezo to ground
-// ? pushbutton to ground
+// 4,5,6 tied to gnd through 470 ohm resistor
+// 7,8,9 tied to switch, N/O, tied to ground, internal pullup
+// 12 Piezo to ground
+// 2 pushbutton to ground
 
 // SONGS
-// Row your boat: d5 e5 c5 c4 g4
+// Close Encounters: d5 e5 c5 c4 g4
 
 // Defines
 #define MAXCMD 50            // Max Command Length

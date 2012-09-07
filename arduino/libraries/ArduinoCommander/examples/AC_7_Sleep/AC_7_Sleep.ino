@@ -129,6 +129,7 @@ void setup() {
     pinMode(i+3,INPUT_PULLUP);
   }
   //:Attach Interrupt
+  pinMode(2,INPUT);
   attachInterrupt(0, Interrupt, FALLING);
  
   //: Start up Serial
@@ -178,7 +179,7 @@ void loop() {
   if (iflag) {
     iflag = 0;
     Serial.println("");
-    Serial.println("Caught Interrup");
+    Serial.println("Caught Interrupt");
   }
   
 }  
@@ -205,7 +206,9 @@ void ProcessCommand(){
   if (strcasestr(cmd,"SLEEP")) {
    set_sleep_mode(SLEEP_MODE_PWR_DOWN);   
    sleep_mode();  
-   sleep_disable();        
+   sleep_disable();  
+   delay(1000);
+   while (Serial.available()) Serial.read();   
    Serial.println("Ok! Ok! I'm Awake! I'm Awake!");
    Ready();
   }
@@ -293,5 +296,5 @@ void PlayNote() {
 }
 
 void Interrupt() {
-  iFlag = 1;
+  iflag = 1;
 }

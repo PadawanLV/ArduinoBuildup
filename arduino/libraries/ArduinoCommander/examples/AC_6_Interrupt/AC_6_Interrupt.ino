@@ -128,6 +128,7 @@ void setup() {
     pinMode(i+3,INPUT_PULLUP);
   }
   //:Attach Interrupt
+  pinMode(2,INPUT);
   attachInterrupt(0, Interrupt, FALLING);
  
   //: Start up Serial
@@ -137,6 +138,15 @@ void setup() {
 }
 
 void loop() {
+  // Interrupt
+  if (iflag) {
+    iflag = 0;
+    Serial.println("");
+    Serial.println("Caught Interrupt");
+    delay(1000);
+    return;
+  }
+ 
   // Play next note?
   if (note) 
     if (++ntick > MAXTIK) 
@@ -167,17 +177,10 @@ void loop() {
       dirty = 1;
     }
   }
-  if (dirty) {
+  if (dirty && !iflag) {
     Serial.println("");
     Serial.print("Input Value = ");
     Serial.println(btn[0] + btn[1]*2 + btn[2]*4);
-  }
-  
-  // Interrupt
-  if (iflag) {
-    iflag = 0;
-    Serial.println("");
-    Serial.println("Caught Interrup");
   }
   
 }  
@@ -282,5 +285,6 @@ void PlayNote() {
 }
 
 void Interrupt() {
-  iFlag = 1;
+  iflag = 1;
+  cli();
 }

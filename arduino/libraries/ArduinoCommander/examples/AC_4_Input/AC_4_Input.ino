@@ -1,17 +1,17 @@
-//: Arduino Buildup
-//: Arduino Commander
+// Arduino Buildup
+// Arduino Commander
 
-//: Board Description
-//: 4,5,6 LED tied to gnd through resistor
-//: 7,8,9 input switchs, N/O, through resistor to grnd
+// Board Description
+// 4,5,6 LED tied to gnd through resistor
+// 7,8,9 input switchs, N/O, through resistor to grnd
 
-//: Defines
-//#define MAXCMD 50            // Max Command Length
+// Defines
+#define MAXCMD 50            // Max Command Length
 
-//: Includes
+// Includes
 #include <string.h>
 
-//: Globals
+// Globals
 char b;                     // Input buffer
 char cmd[MAXCMD+1] = {""};  // Command buffer
 
@@ -19,13 +19,13 @@ char cmd[MAXCMD+1] = {""};  // Command buffer
 int btn[3]={1,1,1};         // Button Status Register
 
 void setup() {
-  //: Initialize Output Pins
-  for (int i=2;i<=4;i++) {
+  // Initialize Output Pins
+  for (int i=4;i<=6;i++) {
     pinMode(i,OUTPUT);
     digitalWrite(i,LOW);
     pinMode(i+3,INPUT_PULLUP);
   }
-  //: Start up Serial
+  // Start up Serial
   Serial.begin(9600);
   Serial.println("Arduino Commander v1.2");
   Ready();
@@ -51,10 +51,10 @@ void loop() {
  
   // Input Polling
   int dirty = 0;
-  for (int i=5;i<=7;i++) {
+  for (int i=7;i<=9;i++) {
     b=digitalRead(i);
-    if (b!=btn[i-5]) {
-      btn[i-5]=b;
+    if (b!=btn[i-7]) {
+      btn[i-7]=b;
       dirty = 1;
     }
   }

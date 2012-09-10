@@ -1,26 +1,26 @@
-//: Arduino Buildup
-//: Arduino Commander
+// Arduino Buildup
+// Arduino Commander
 
-//: Board Description
-//: 4,5,6 tied to gnd through resistor
+// Board Description
+// 4,5,6 tied to gnd through resistor
 
-//: Defines
-//#define MAXCMD 50            // Max Command Length
+// Defines
+#define MAXCMD 50            // Max Command Length
 
-//: Includes
+// Includes
 #include <string.h>
 
-//: Globals
+// Globals
 char b;                     // Input buffer
 char cmd[MAXCMD+1] = {""};  // Command buffer
 
 void setup() {
-  //: Initialize Output Pins
-  for (int i=2;i<=4;i++) {
+  // Initialize Output Pins
+  for (int i=4;i<=6;i++) {
     pinMode(i,OUTPUT);
     digitalWrite(i,LOW);
   }
-  //: Start up Serial
+  // Start up Serial
   Serial.begin(9600);
   Serial.println("Arduino Commander v1.2");
   Ready();
@@ -28,10 +28,10 @@ void setup() {
 
 void loop() {
  
-  //: Read Serial Port, build command
+  // Read Serial Port, build command
   if (Serial.available()) {
     b = Serial.read();
-    //: If /, then process command
+    // If /, then process command
     if (b=='/') {
       ProcessCommand();
       return;
@@ -43,12 +43,10 @@ void loop() {
       return; 
     }
   }
-  
 }  
  
 // Command Processor
 void ProcessCommand(){
-  
   Serial.println();
   Serial.println(cmd);
 

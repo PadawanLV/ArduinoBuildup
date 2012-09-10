@@ -117,13 +117,13 @@ unsigned char notes[] = {
 0,0,0,0,0 };
 
 void setup() {
-  //: Initialize Output Pins
-  for (int i=2;i<=4;i++) {
+  // Initialize Output Pins
+  for (int i=4;i<=6;i++) {
     pinMode(i,OUTPUT);
     digitalWrite(i,LOW);
     pinMode(i+3,INPUT_PULLUP);
   }
-  //: Start up Serial
+  // Start up Serial
   Serial.begin(9600);
   Serial.println("Arduino Commander v1.2");
   Ready();
@@ -135,7 +135,7 @@ void loop() {
     if (++ntick > MAXTIK) 
       PlayNote();
       
-  //: Read Serial Port, build command
+  // Read Serial Port, build command
   if (Serial.available()) {
     b = Serial.read();
     //: If /, then process command
@@ -153,10 +153,10 @@ void loop() {
  
   // Input Polling
   int dirty = 0;
-  for (int i=5;i<=7;i++) {
+  for (int i=7;i<=9;i++) {
     b=digitalRead(i);
-    if (b!=btn[i-5]) {
-      btn[i-5]=b;
+    if (b!=btn[i-7]) {
+      btn[i-7]=b;
       dirty = 1;
     }
   }
@@ -246,20 +246,13 @@ void PlayNote() {
  }
  // note to play
  strncpy(n,note,3);
- //Serial.print("Searching for: ");
- //Serial.println(n);
- // itterate through notes
+// itterate through notes
  for (p = notes; *p; p+=5) {
    strncpy(c,(char *)p,3);
-   //Serial.print("Saw: ");
-   //Serial.println(c);
    if (strcasestr(n,c)) {
-     //Serial.println(*(p+3),DEC);
-     //Serial.println(*(p+4),DEC);
      noTone(PTONE);
      delay(100);
      unsigned int itone = *(p+3) + (*(p+4) * 256);
-     //Serial.println(itone,DEC);
      tone(PTONE,itone);
      ntick = 0;     
      return;

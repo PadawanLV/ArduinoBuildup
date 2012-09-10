@@ -1,21 +1,21 @@
-//: Arduino Buildup
-//: Arduino Commander
+// Arduino Buildup
+// Arduino Commander
 
-//: Board Description
-//: 4,5,6 tied to gnd through 470 ohm resistor
-//: 7,8,9 input switches, N/O, through resistor to grnd
-//: 12 piezo speaker through resistor to grnd
-//: 2 input switch, N/O, through resistor to grnd
+// Board Description
+// 4,5,6 tied to gnd through 470 ohm resistor
+// 7,8,9 input switches, N/O, through resistor to grnd
+// 12 piezo speaker through resistor to grnd
+// 2 input switch, N/O, through resistor to grnd
 
-//: Defines
+// Defines
 #define MAXCMD 50            // Max Command Length
 #define MAXTIK 10000         // Note Duration
 #define PTONE 12             // Port for Piezo
 
-//: Includes
+// Includes
 #include <string.h>
 
-//: Globals
+// Globals
 char b;                     // Input buffer
 char cmd[MAXCMD+1] = {""};  // Command buffer
 
@@ -121,17 +121,17 @@ unsigned char notes[] = {
 volatile int iflag = 0;
 
 void setup() {
-  //: Initialize Output Pins
-  for (int i=2;i<=4;i++) {
+  // Initialize Output Pins
+  for (int i=4;i<=6;i++) {
     pinMode(i,OUTPUT);
     digitalWrite(i,LOW);
     pinMode(i+3,INPUT_PULLUP);
   }
-  //:Attach Interrupt
-  pinMode(2,INPUT);
+  // Attach Interrupt
+  pinMode(2,INPUT_PULLUP);
   attachInterrupt(0, Interrupt, FALLING);
  
-  //: Start up Serial
+  // Start up Serial
   Serial.begin(9600);
   Serial.println("Arduino Commander v1.2");
   Ready();
@@ -170,10 +170,10 @@ void loop() {
  
   // Input Polling
   int dirty = 0;
-  for (int i=5;i<=7;i++) {
+  for (int i=7;i<=9;i++) {
     b=digitalRead(i);
-    if (b!=btn[i-5]) {
-      btn[i-5]=b;
+    if (b!=btn[i-7]) {
+      btn[i-7]=b;
       dirty = 1;
     }
   }

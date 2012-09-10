@@ -213,6 +213,7 @@ void ProcessCommand(){
    Serial.flush();
    Serial.println("Ok! Ok! I'm Awake! I'm Awake!");
    Ready();
+   Return();
   }
   
   // Command

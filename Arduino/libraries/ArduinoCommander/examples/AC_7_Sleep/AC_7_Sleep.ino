@@ -207,7 +207,7 @@ void ProcessCommand(){
   // SLEEP
   if (strcasestr(cmd,"SLEEP")) {
    set_sleep_mode(SLEEP_MODE_PWR_DOWN);   
-   sleep_mode();  o
+   sleep_mode();  
    sleep_disable();  
    delay(1000);
    Serial.flush();
